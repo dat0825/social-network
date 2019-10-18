@@ -7,7 +7,10 @@ const {
   getAllStatus,
   postOneStatus,
   getStatus,
-  commentOnStatus
+  commentOnStatus,
+  likeStatus,
+  unlikeStatus,
+  deleteStatus
 } = require("./handlers/status");
 const {
   signup,
@@ -22,9 +25,12 @@ app.get("/status", getAllStatus);
 app.post("/status", FBAuth, postOneStatus);
 app.get("/status/:statusId", getStatus); // phải để là ':statusId' tức là 1 giá trị tham số để thay đổi
 // delete status
-// like a status
+app.delete('/status/:statusId',FBAuth, deleteStatus);
+// người dùng hiện tại like a status
+app.get("/status/:statusId/like", FBAuth, likeStatus);
 //  unlike a status
-//  comment on status
+app.get("/status/:statusId/unlike", FBAuth, unlikeStatus);
+// người dùng hiện tại comment on status (người dùng hiện tại xác thực qua token)
 app.post("/status/:statusId/comment", FBAuth, commentOnStatus);
 
 // user routes
